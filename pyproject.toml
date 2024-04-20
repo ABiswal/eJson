@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "eJson"
+version="0.1.0"
+authors=["ABiswal",]
+description="eJson Package"
+
+[tool.poetry.dependencies]
+# These packages are mandatory and form the core of this package’s distribution.
+python =">=3.6"
+conan ="2.2.0"
+
+# A list of all of the optional dependencies, some of which are included in the
+# below `extras`. They can be opted into by apps.
+#e.g.psycopg2 = { version = "^2.9", optional = true }
+
+
+[tool.poetry.extras]
