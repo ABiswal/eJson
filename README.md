@@ -1,11 +1,11 @@
-#eJson Library
+# eJson Library
 ===========================
 
 
 eJson Library is a light weight library which provides parsing for JSON 
 like file.
 
-##Folder Structure
+## Folder Structure
 ------------
 
 ```
@@ -24,40 +24,47 @@ eJson
    |-- README.rst                Information about various things
 ```
 
-##Build Instruction
+## Build Instruction
 ------------
 
 This libary uses cmake and conan environment for the builds of different
 targets. The environment is maintained by poetry.
 
-###Steps
+### Steps
 -----
 1. create python3 venv inside work
 $python3 -m venv venv
 
 2. install poetry
+```
 $./venv/bin/pip install poetry
+```
 
 3. activate environment
-$source ./venv/bin/activate
+
+``` $source ./venv/bin/activate ```
 
 4. activate poetry shell
-$poetry shell
+
+``` $poetry shell ```
 
 5. Build for a target
    - Linux x86_64 (ubuntu)
       - use command (from eJson root)
-        $make build_linux
+
+        ``` $make build_linux ```
+
    - armv7 (*not tested)
       - use command (from eJson root)
-         $make build_arm 
+
+         ``` $make build_arm ```
 
 To clean the previous outputs , use 
 
 $make clean
 
-
-##unittests
+## Tests
+### unittests
 --------
 
 This project uses GoogleTest(gtest) framework for the unittesting of the code.
@@ -66,21 +73,21 @@ It is assumed that steps 1 to 5 for builds has been performed as a prerequisite.
 
 To run the unittests , use command listed below (from eJson root)
 
-$make unittests 
+``` $make unittests ```
 
 To clean the previous outputs , use 
 
-$make clean
+``` $make clean ```
 
-##Usage
+## Usage
 -----
 
 
 
-#Miscellaneous
-~~~~~~~~~~~~~
+## Miscellaneous
+-------
 
 
-#Contacts
+## Contacts
 ---------
 Achyutananda Biswal: greatANB@gmail.com
