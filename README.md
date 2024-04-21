@@ -1,12 +1,12 @@
 # eJson Library
-===========================
+
 
 
 eJson Library is a light weight library which provides parsing for JSON 
 like file.
 
 ## Folder Structure
-------------
+
 
 ```
 eJson
@@ -25,20 +25,20 @@ eJson
 ```
 
 ## Build Instruction
-------------
+
 
 This libary uses cmake and conan environment for the builds of different
 targets. The environment is maintained by poetry.
 
 ### Steps
------
+
 1. create python3 venv inside work
-$python3 -m venv venv
+
+``` $python3 -m venv venv ```
 
 2. install poetry
-```
-$./venv/bin/pip install poetry
-```
+
+``` $./venv/bin/pip install poetry ```
 
 3. activate environment
 
@@ -61,11 +61,11 @@ $./venv/bin/pip install poetry
 
 To clean the previous outputs , use 
 
-$make clean
+   ``` $make clean ```
 
 ## Tests
 ### unittests
---------
+
 
 This project uses GoogleTest(gtest) framework for the unittesting of the code.
 
@@ -80,14 +80,14 @@ To clean the previous outputs , use
 ``` $make clean ```
 
 ## Usage
------
+
 
 
 
 ## Miscellaneous
--------
+
 
 
 ## Contacts
----------
+
 Achyutananda Biswal: greatANB@gmail.com

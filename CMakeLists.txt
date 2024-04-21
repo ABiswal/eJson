@@ -5,6 +5,7 @@ project("eJsonProject"
 
 add_subdirectory(include)
 add_subdirectory(src)
+add_subdirectory(thirdparty)
 #add_subdirectory(tests/unittests)
 
 #add_executable(${PROJECT_NAME} src/main.cpp)

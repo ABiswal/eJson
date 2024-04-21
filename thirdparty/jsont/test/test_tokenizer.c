@@ -1,5 +1,4 @@
-#include <gtest/gtest.h>
-#include "jsont.hh"
+#include <jsont.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -11,7 +10,9 @@
     strlen(fieldName)) == true); \
 } while(0)
 
-TEST(eJsonTest, BasicAssertions){
+int main(int argc, const char** argv) {
+  // Create a new reusable tokenizer
+  jsont_ctx_t* S = jsont_create(0);
 
   const char* inbuf = "{ "
     "\"\\\"fo\\\"o\": \"Foo\","  // "\"fo\"o": "Foo"
@@ -40,23 +41,20 @@ TEST(eJsonTest, BasicAssertions){
     "]"
   "}";
 
-  jsont::Tokenizer S((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
+  jsont_reset(S, (const uint8_t*)inbuf, strlen(inbuf));
+  jsont_tok_t tok;
 
-  //S.reset((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
-  jsont::Token tok;
+  tok = jsont_next(S);
+  assert(tok == JSONT_OBJECT_START);
+  assert(jsont_current(S) == JSONT_OBJECT_START);
 
-  tok = S.next();
-  EXPECT_EQ(tok,jsont::Token::ObjectStart);
-  EXPECT_EQ(S.current(),jsont::Token::ObjectStart);
-  
-  tok = S.next();
-  EXPECT_EQ(tok,jsont::Token::FieldName);
+  tok = jsont_next(S);
+  assert(tok == JSONT_FIELD_NAME);
 
-  
   // Expect current data to be the bytes '"fo"o'
   const char* expectedData = "\"fo\"o";
-  const char * bytes;
-  size_t size = S.dataValue(&bytes);
+  const uint8_t* bytes;
+  size_t size = jsont_data_value(S, &bytes);
   size_t expectedSize = strlen(expectedData);
   // printf("expectedData: '%s'\n", expectedData);
   // printf("currentData:  '%.*s'\n", (int)size, (const char*)bytes);
@@ -65,33 +63,25 @@ TEST(eJsonTest, BasicAssertions){
   assert(d == 0);
 
   // Expect a string value "Foo"
-  tok = S.next();
-  EXPECT_EQ(tok,jsont::Token::String);
-  std::string str = S.stringValue();
+  tok = jsont_next(S);
+  assert(tok == JSONT_STRING);
+  char* str = jsont_strcpy_value(S);
   assert(str != 0);
   assert(strcmp(str, "Foo") == 0);
-  //free(str); str = 0;
+  free(str); str = 0;
 
   // Expect field name "1". Also tests the integrity of jsont_data_equals
-  tok = S.next();
-  //assert(jsont_data_equals(S, (const uint8_t*)"1", 1) == true);
-  //assert(jsont_str_equals(S, "1") == true);
-  size = S.dataValue(&bytes);
+  tok = jsont_next(S);
+  assert(jsont_data_equals(S, (const uint8_t*)"1", 1) == true);
+  assert(jsont_str_equals(S, "1") == true);
+  size = jsont_data_value(S, &bytes);
   assert(size == 1);
   assert(memcmp((const void*)"1", (const void*)bytes, 1) == 0);
 
-  
-
   // Expect the string '\u2192' (RIGHTWARDS ARROW, UTF8: E2,86,92)
-  //assert(jsont_next(S) == JSONT_STRING);
-  //assert(jsont_str_equals(S, "\xe2\x86\x92") == true);
+  assert(jsont_next(S) == JSONT_STRING);
+  assert(jsont_str_equals(S, "\xe2\x86\x92") == true);
   
-  tok = S.next();
-  EXPECT_EQ(tok,jsont::Token::String);
-  str = S.stringValue();
-  assert(str != 0);
-  EXPECT_EQ(str, "\xe2\x86\x92");
-  #if 0
   // Expect a field name 'n'
   jsont_next(S);
   JSONT_ASSERT_FIELD_NAME("n");
@@ -182,11 +172,9 @@ TEST(eJsonTest, BasicAssertions){
   // ] }
   assert(jsont_next(S) == JSONT_ARRAY_END);
   assert(jsont_next(S) == JSONT_OBJECT_END);
-  #endif
 
-  //jsont_destroy(S);
-  //printf("PASS\n");
 
-  
+  jsont_destroy(S);
+  printf("PASS\n");
+  return 0;
 }
-
