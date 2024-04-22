@@ -79,8 +79,44 @@ To clean the previous outputs , use
 
 ``` $make clean ```
 
-## Usage
+## API Usage
 
+This library provides a wrapper and extends the API provided by jsont library.
+
+### Class eJsonTokenizer
+
+Creates a Tockenizer object from a eJson file.
+
+e.g:
+
+```
+  eJson::eJsonTokenizer E("test.eJson");
+  jsont::Token tok;
+  tok=E.tockenizer.next();
+  // tok contains the token value
+  if (tok == eJson::jsont::Error){
+      // handle error
+  }
+
+```
+
+#### Reading tokens
+
+- `const Token& next() throw(Error)` — Read next token, possibly throwing an `Error`
+- `const Token& current() const` — Access current token
+
+#### Reading values
+
+- `bool hasValue() const` — True if the current token has a value
+- `size_t dataValue(const char const** bytes)` — Returns a slice of the input which represents the current value, or nothing (returns 0) if the current token has no value (e.g. start of an object).
+- `std::string stringValue() const` — Returns a *copy* of the current string value.
+- `double floatValue() const` — Returns the current value as a double-precision floating-point number.
+- `int64_t intValue() const` — Returns the current value as a signed 64-bit integer.
+
+#### Handling errors
+
+- `ErrorCode error() const` — Returns the error code of the last error
+- `const char* errorMessage() const` — Returns a human-readable message for the last error. Never returns NULL.
 
 
 

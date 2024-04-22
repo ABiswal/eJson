@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "jsont.hh"
+#include "eJson.hh"
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -40,9 +41,10 @@ TEST(eJsonTest, BasicAssertions){
     "]"
   "}";
 
+ 
   jsont::Tokenizer S((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
 
-  //S.reset((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
+  S.reset((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
   jsont::Token tok;
 
   tok = S.next();
@@ -190,3 +192,16 @@ TEST(eJsonTest, BasicAssertions){
   
 }
 
+/* Uncomment the below test case if required
+*  the eJson files must be present in work/unittests folder
+*/
+#if 0
+TEST(eJson, FileImport){
+  eJson::eJsonTokenizer E("test.eJson");
+  jsont::Token tok;
+  tok=E.tockenizer.next();
+  
+  EXPECT_EQ(tok,jsont::Token::ObjectStart);
+  EXPECT_EQ(E.tockenizer.current(),jsont::Token::ObjectStart);
+}
+#endif

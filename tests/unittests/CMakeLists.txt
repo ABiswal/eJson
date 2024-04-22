@@ -14,7 +14,7 @@ target_link_libraries(
 )
 
 target_include_directories(main_test PUBLIC
-${CMAKE_SOURCE_DIR}/include
+${CMAKE_SOURCE_DIR}/../../include
 ${CMAKE_SOURCE_DIR}/../../thirdparty/jsont
 )   
 

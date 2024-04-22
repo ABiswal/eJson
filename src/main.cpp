@@ -1,40 +1,24 @@
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <regex>
 #include "jsont.hh"
+#include "eJson.hh"
 
-int main() {
+int main(int argc, char * argv[]) {
   
-  const char* inbuf = "{ "
-    "\"\\\"fo\\\"o\": \"Foo\","  // "\"fo\"o": "Foo"
-    "\"1\" :  \"\\u2192\","
-    "\"n\":1234,"
-    "\"x\"  :  \t 12.34,"
-    "\"overflow\"  :  \t 9999999999999999999999999999999999,"
-    "\"b\\/a\\/r\":["
-      "null,"
-      "true,"
-      "false,"
-      "{"
-        "\"x\":12.3"
-      "},"
-      "\n123,"
-      "\"456\","
-      "\"a\\\"b\\\"\","
-      "\"a\\u0000b\","
-      "\"a\\bb\","
-      "\"a\\fb\","
-      "\"a\\nb\","
-      "\"a\\rb\","
-      "\"a\\tb\","
-      "\"\","
-      "\"   \""
-    "]"
-  "}";
+  std::cout<<"Hello eJson<<std::endl";
 
-  jsont::Tokenizer S((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
-
-  S.reset((const char *)inbuf, strlen(inbuf),jsont::TextEncoding::UTF8TextEncoding);
+  // uncomment the below code if required to test the import
+  // the eJson file must be present in work/build_linux/src
+  //TODO: use copy later
+  #if 0
+  eJson::eJsonTokenizer E("test.eJson");
   jsont::Token tok;
-
-  tok = S.next();
+  tok=E.tockenizer.next();
+  
   printf("tocken %d",tok);
+  #endif
+
 }

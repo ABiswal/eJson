@@ -121,7 +121,11 @@ public:
   const char* inputBytes() const;
 
   friend class TokenizerInternal;
+  Tokenizer(){}
+
 private:
+  //Tokenizer();
+
   size_t availableInput() const;
   size_t endOfInput() const;
   const Token& setToken(Token t);

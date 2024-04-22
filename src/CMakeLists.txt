@@ -9,7 +9,7 @@ add_library(eJson STATIC
 
 add_executable(main "main.cpp")
 target_include_directories(main PUBLIC 
-                            include
+                            ${CMAKE_SOURCE_DIR}/include
                             ${CMAKE_SOURCE_DIR}/thirdparty/jsont
                             )
 target_link_libraries(main PRIVATE fmt::fmt eJson)
